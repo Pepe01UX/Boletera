@@ -22,6 +22,7 @@ import {
   type MatchEvent,
   type TicketTier,
 } from "@/lib/events";
+import { buildTicketHref, saveTicket } from "@/lib/saved-tickets";
 
 export function CheckoutClient({
   event,
@@ -49,14 +50,32 @@ export function CheckoutClient({
 
   const handlePay = () => {
     setLoading(true);
-    const params = new URLSearchParams({
-      seats: seatIds.join(","),
-      name: name || "Aficionado Coronelas",
-      email: email || "fan@coronelas.mx",
+    const buyerName = name || "Aficionado Coronelas";
+    const buyerEmail = email || "fan@coronelas.mx";
+    const href = buildTicketHref({
+      eventId: event.id,
+      seatIds,
+      buyerName,
+      buyerEmail,
+    });
+    const orderId = `CRN-${event.id.slice(-4).toUpperCase()}-${Date.now().toString().slice(-6)}`;
+
+    saveTicket({
+      id: orderId,
+      eventId: event.id,
+      eventTitle: event.title,
+      date: event.date,
+      time: event.time,
+      venue: event.venue,
+      city: event.city,
+      seatLabels,
+      buyerName,
+      href,
+      purchasedAt: new Date().toISOString(),
     });
 
     window.setTimeout(() => {
-      router.push(`/boletos/${event.id}?${params.toString()}`);
+      router.push(href);
     }, 600);
   };
 

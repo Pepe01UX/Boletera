@@ -15,8 +15,12 @@ export function MobileTabbar() {
           Partidos
         </Link>
         <Link
-          href="/"
-          className={`mobile-tab ${pathname.includes("boletos") ? "mobile-tab--active" : ""}`}
+          href="/mis-boletos"
+          className={`mobile-tab ${
+            pathname.startsWith("/mis-boletos") || pathname.startsWith("/boletos")
+              ? "mobile-tab--active"
+              : ""
+          }`}
         >
           <Ticket className="size-5" />
           Mis boletos

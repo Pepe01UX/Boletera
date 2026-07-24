@@ -11,7 +11,10 @@ const steps = [
 
 export function ProgressNav() {
   const pathname = usePathname();
-  const hideProgress = pathname.startsWith("/boletos") || pathname === "/";
+  const hideProgress =
+    pathname.startsWith("/boletos") ||
+    pathname.startsWith("/mis-boletos") ||
+    pathname === "/";
 
   if (hideProgress) {
     return null;
