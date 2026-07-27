@@ -56,7 +56,7 @@ export function MyTicketsClient() {
   return (
     <div className="page-stack">
       <div className="section-heading">
-        <h1>Mis boletos</h1>
+        <h1>Mis compras</h1>
         <p>Tus entradas compradas en esta sesión. Toca una para ver el QR.</p>
       </div>
 

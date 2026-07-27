@@ -1,12 +1,18 @@
 import type { Metadata, Viewport } from "next";
-import { Manrope } from "next/font/google";
+import { Bricolage_Grotesque, Geist } from "next/font/google";
 import "./globals.css";
 import { AppShell } from "@/components/app-shell";
 
-const manrope = Manrope({
+const geist = Geist({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-manrope",
+  variable: "--font-geist",
+});
+
+const bricolage = Bricolage_Grotesque({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-bricolage",
 });
 
 export const metadata: Metadata = {
@@ -28,8 +34,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="es" className="dark" data-scroll-behavior="smooth" suppressHydrationWarning>
-      <body className={`${manrope.variable} ${manrope.className} antialiased`}>
+    <html lang="es" className="dark" suppressHydrationWarning>
+      <body className={`${geist.variable} ${bricolage.variable} antialiased`}>
         <AppShell>{children}</AppShell>
       </body>
     </html>

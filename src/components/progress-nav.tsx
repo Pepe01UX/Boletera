@@ -14,6 +14,7 @@ export function ProgressNav() {
   const hideProgress =
     pathname.startsWith("/boletos") ||
     pathname.startsWith("/mis-boletos") ||
+    pathname.startsWith("/buscar") ||
     pathname === "/";
 
   if (hideProgress) {

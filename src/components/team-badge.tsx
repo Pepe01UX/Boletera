@@ -10,12 +10,13 @@ export function TeamBadge({
   fallback,
   compact = false,
 }: {
-  src: string;
+  src?: string;
   alt: string;
   fallback: string;
   compact?: boolean;
 }) {
   const [failed, setFailed] = useState(false);
+  const showImage = Boolean(src) && !failed;
 
   return (
     <div
@@ -24,9 +25,9 @@ export function TeamBadge({
         compact ? "size-14 p-1.5 rounded-2xl" : "size-[84px] p-2 sm:size-24",
       )}
     >
-      {!failed ? (
+      {showImage ? (
         <Image
-          src={src}
+          src={src as string}
           alt={alt}
           width={compact ? 44 : 80}
           height={compact ? 44 : 80}

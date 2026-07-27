@@ -2,7 +2,25 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Ticket } from "lucide-react";
+import { Home, Search, Ticket } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+const tabs = [
+  { href: "/", label: "Inicio", icon: Home, isActive: (path: string) => path === "/" },
+  {
+    href: "/buscar",
+    label: "Buscar",
+    icon: Search,
+    isActive: (path: string) => path.startsWith("/buscar"),
+  },
+  {
+    href: "/mis-boletos",
+    label: "Mis Compras",
+    icon: Ticket,
+    isActive: (path: string) =>
+      path.startsWith("/mis-boletos") || path.startsWith("/boletos"),
+  },
+] as const;
 
 export function MobileTabbar() {
   const pathname = usePathname();
@@ -10,21 +28,22 @@ export function MobileTabbar() {
   return (
     <nav className="mobile-tabbar no-print">
       <div className="mobile-tabbar__inner">
-        <Link href="/" className={`mobile-tab ${pathname === "/" ? "mobile-tab--active" : ""}`}>
-          <Home className="size-5" />
-          Partidos
-        </Link>
-        <Link
-          href="/mis-boletos"
-          className={`mobile-tab ${
-            pathname.startsWith("/mis-boletos") || pathname.startsWith("/boletos")
-              ? "mobile-tab--active"
-              : ""
-          }`}
-        >
-          <Ticket className="size-5" />
-          Mis boletos
-        </Link>
+        {tabs.map(({ href, label, icon: Icon, isActive }) => {
+          const active = isActive(pathname);
+
+          return (
+            <Link
+              key={href}
+              href={href}
+              className={cn("mobile-tab", active && "mobile-tab--active")}
+            >
+              <span className={cn("mobile-tab__icon", active && "mobile-tab__icon--active")}>
+                <Icon className="size-5" />
+              </span>
+              {label}
+            </Link>
+          );
+        })}
       </div>
     </nav>
   );
